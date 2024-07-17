@@ -11,7 +11,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: '../tests',
+  testDir: '../tests/study',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -21,12 +21,28 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [
+    // The reporter field is usually part of jest-playwright's configuration when writing tests with Jest and Playwright together. If you're just using Playwright without Jest, this field won't have any effect. 
+    ['html', {
+      open: 'never',
+      outputFolder: 'src/configs/reports' 
+  }]
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
 
+      //EXAMPLE OF baseURL and extra headers ad token for API requests
+        // All requests we send go to this API endpoint.
+        // baseURL: 'https://api.github.com',
+        // extraHTTPHeaders: {
+        //   // We set this header per GitHub guidelines.
+        //   'Accept': 'application/vnd.github.v3+json',
+        //   // Add authorization token to all requests.
+        //   // Assuming personal access token available in the environment.
+        //   'Authorization': `token ${process.env.API_TOKEN}`,
+    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
