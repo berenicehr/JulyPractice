@@ -13,7 +13,9 @@ test("Interceptor usage", async({page}) => {
     await page.route("https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.0a0b85a3.jpg", 
         (route) => route.abort())
     
-    await page.route("https://www.saucedemo.com/static/media/bike-light-1200x1500.37c843b0.jpg", 
+    //Evitar cargas por tipo
+    
+    await page.route("**/*.{png,jpg,jpeg,svg}", 
             (route) => route.abort())
 
     // Para evitar la carga de ciertas imagenes
