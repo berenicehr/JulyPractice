@@ -2,9 +2,8 @@ import {test, expect} from "@playwright/test"
 import { Loginpage } from "../../po/pages/loginpage";
 
 test("Saucedemo Practice", async({page}) => {
-    // await page.goto("https://www.saucedemo.com/");
-    await page.goto(process.env.URL);
-
+     await page.goto("https://www.saucedemo.com/");
+     //await page.goto(process.env.URL);
 
     const loginPage = new Loginpage(page);
     await loginPage.loginWithCredentials("standard_user", "secret_sauce");
